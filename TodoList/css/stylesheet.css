@@ -18,3 +18,13 @@
     background-color: #d1c4e2;
     color: white;
 }
+
+.list-group-item input[type="checkbox"]{
+  transform: scale(1.2);
+  margin-right: 9px;
+}
+
+.list-group-item input[type="checkbox"]:checked + span {
+  text-decoration: line-through;
+}
+

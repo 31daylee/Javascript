@@ -61,11 +61,11 @@
 
             // 이벤트 캡처링(true) : 하위로 이벤트 전파
             box1[1].addEventListener('click', function(e){
-                
+                e.stopImmediatePropagation();
                 console.log('box1 click');
             }, true);
             box2[1].addEventListener('click', function(e){
-              
+                
                 console.log('box2 click');
             }, true);
             box3[1].addEventListener('click', function(e){
