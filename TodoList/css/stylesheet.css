@@ -1,0 +1,20 @@
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Grandiflora+One&family=IBM+Plex+Sans+KR&display=swap');
+
+
+*{
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: bold;
+    font-size: large;
+}
+.header{
+  background-color: #d1c4e2;
+  color: white;
+}
+
+.btn{
+    background-color: #d1c4e2;
+    color: white;
+}
