@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3.AJAX</title>
+    <!--
+        날짜 : 2023/07/25
+        이름 : 이현정
+        내용 : 자바스크립트 AJAX 실습하기
+    -->
+    <script>
+        window.onload = function(){
+            const btnData = document.getElementById('btnData');
+            btnData.addEventListener('click', ()=>{
+                // AJAX 데이터 요청
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET','http://chhak.click/data/user.json');
+                xhr.send();
+
+                // 응답 처리 핸들러
+                xhr.onreadystatechange = function(){
+
+                    if(xhr.readyState == XMLHttpRequest.DONE){ // 요청 완료
+
+                        if(xhr.status == 200){ // 200값 : 처리 성공 - 요청 성공
+                            const data = JSON.parse(xhr.response); //문자열에서 JSON 객체로 변환
+                            console.log(data);
+
+                            const span = document.getElementsByTagName('span');
+                            span[0].innerText = data.uid;
+                            span[1].innerText = data.name;
+                            span[2].innerText = data.hp;
+                            span[3].innerText = data.age;
+
+                        }else{
+                            console.log('요청 실패...');
+                        }
+                    }
+
+
+                } // onreadystatechange end
+            }) // addEventListener end
+
+            document.getElementById('btnUsers').onclick = function(e){
+                e.preventDefault(); // 기본 이벤트 해제
+                
+
+                 // 최신 자바 버전에서 사용하는 방법 (AJAX 데이터 요청 사용하지 않음)
+                 fetch('http://chhak.click/data/users.json')
+                    .then((response)=>response.json()) // .json() 은 json 객체로 변환하는 것 
+                    .then((data) =>{
+                        console.log(data)
+
+                        const table = document.getElementsByTagName('table')[0]; // elements 이니깐 배열 등장 그리고 첫번째(인덱스로는 [0])table 선택 
+
+                        for(let user of data.users){
+                        console.log(user);
+                        const tr = document.createElement('tr'); // 관련 row 가 없으니깐 만들어주기 
+                        const td1 = document.createElement('td'); // 관련 data가 없으니깐 만들어주기 
+                        const td2 = document.createElement('td');
+                        const td3 = document.createElement('td');
+                        const td4 = document.createElement('td');
+                        
+                        td1.innerText = user.uid; // user의 내용을 td1에 넣어주기 
+                        td2.innerText = user.name;
+                        td3.innerText = user.hp;
+                        td4.innerText = user.age;
+
+                        table.appendChild(tr);
+                        table.appendChild(td1);
+                        table.appendChild(td2);
+                        table.appendChild(td3);
+                        table.appendChild(td4);
+
+                    }
+                    })
+                    .catch(()=>{
+                        console.log('요청 실패...');
+                    });
+                    
+                   
+
+
+                    
+              
+
+            } // btnUsers onclick end 
+
+           
+
+
+
+        }; //window.onload end
+       
+     
+
+
+    </script>
+</head>
+<body>
+    <h3>3.AJAX</h3>
+    <button id="btnData">데이터 요청</button>
+
+    <p>
+        아이디 : <span></span><br>
+        이름 : <span></span><br>
+        휴대폰 : <span></span><br>
+        나이 : <span></span><br>
+    </p>
+    
+    <a href="#" id="btnUsers">users 데이터 요청</a>
+    <table border="1">
+        <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>휴대폰</th>
+            <th>나이</th>
+        </tr>
+    
+
+    </table>
+</body>
+</html>

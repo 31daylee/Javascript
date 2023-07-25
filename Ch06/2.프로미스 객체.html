@@ -42,7 +42,7 @@
 
 
         // Promise를 이용한 비동기 방식 처리
-        function step1(){
+        async function step1(){
             return new Promise((resolve,reject)=>{
                 setTimeout(() => {
                     resolve('step1...');
@@ -50,7 +50,7 @@
 
             });
         }
-        function step2(msg){
+        async function step2(msg){
             console.log(msg);
             return new Promise((resolve,reject)=>{
                 setTimeout(() => {
@@ -59,7 +59,7 @@
 
             });
         }
-        function step3(msg){
+        async function step3(msg){
             console.log(msg);
             return new Promise((resolve,reject)=>{
                 setTimeout(() => {
@@ -76,6 +76,23 @@
                 console.log(msg);
             });
         
+        // async/await 구문을 활용한 비동기 처리 
+       async function start(){
+            const result1 = await step1(); //step1 의 resolve 값
+            const result2 = await step2(result1);
+            const result3 = await step3(result2);
+            console.log(result3);
+        }
+
+        setTimeout(()=>{
+            start();
+        },7000);
+    
+
+
+       
+
+
 
     </script>
 
