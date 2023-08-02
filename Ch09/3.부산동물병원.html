@@ -17,6 +17,10 @@
                     center: new kakao.maps.LatLng(35.137118727649465, 129.09890687009568 ), 
                     level: 3
             };
+            
+            
+
+
 
             // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -35,12 +39,26 @@
                     
                         let marker =  new kakao.maps.Marker({
                             map: map, 
-                            position: new kakao.maps.LatLng(item.lat, item.lon),
+                            position: new kakao.maps.LatLng(item.lat, item.lon), 
                             title : item.animal_hospital
                         });
                         marker.setMap(map);
+                        let iwContent = '<div style="padding:5px;">'+item.animal_hospital+'<br>'+item.road_address+'<br><a href="https://map.kakao.com/link/map/'+item.animal_hospital+','+item.lat+','+item.lon+'" style="color:blue" target="_blank">현위치 크게 보기</a> <a href="https://map.kakao.com/link/to/'+item.animal_hospital+','+item.lat+','+item.lon+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                                iwPosition = new kakao.maps.LatLng(item.lat, item.lon); //인포윈도우 표시 위치입니다
+                             iwPosition = new kakao.maps.LatLng(item.lat, item.lon); 
+
+                        let infowindow = new kakao.maps.InfoWindow({
+                            position : iwPosition, 
+                            content : iwContent 
+                        });
+                      
+                        
+                        // 마커에 클릭이벤트를 등록합니다
+                         kakao.maps.event.addListener(marker, 'click', function() {
+                              // 마커 위에 인포윈도우를 표시합니다
+                             infowindow.open(map, marker);  
+                         });
                     }
-    
                 });
 
             }  
